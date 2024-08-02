@@ -8,14 +8,17 @@ const app = express();
 const PORT = 5002;
 
 app.use(cors({
-    origin: 'http://localhost:3004', 
+    origin: ['http://localhost:3000', 'http://localhost:3004'], 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type']
 }));
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost/tennis-reservations')
+mongoose.connect('mongodb://localhost/tennis-reservations', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 

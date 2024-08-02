@@ -1,14 +1,25 @@
 import React from 'react';
-import AddReservation from './components/AddReservation';
-import ReservationList from './components/ReservationList';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import Home from './components/menu/Home';
+import Reservations from './components/reservation/Reservations';
+import Contact from './components/menu/Contact';
+import About from './components/menu/About';
+import './../src/styles/style.css';
 
 const App = () => {
     return (
-        <div>
-            <h1>Scheduler</h1>
-            <AddReservation />
-            <ReservationList />
-        </div>
+        <Router>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/reservations" element={<Reservations />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about" element={<About />} />
+            </Routes>
+            <Footer />
+        </Router>
     );
 };
 

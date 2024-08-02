@@ -14,19 +14,31 @@ router.get('/', async (req, res) => {
 
 // Dodaj nową rezerwację
 router.post('/', async (req, res) => {
-    const reservation = new Reservation({
-        courtNumber: req.body.courtNumber,
-        date: req.body.date,
-        time: req.body.time,
-        playerName: req.body.playerName,
-        duration: req.body.duration
-    });
-    try {
-        const newReservation = await reservation.save();
-        res.status(201).json(newReservation);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+    
+    const { courtNumber, date, time, playerName, duration } = req.body;
+    console.log('Received body:', req.body);
+
+  
+    if (!courtNumber || !date || !time || !playerName || !duration) {
+      return res.status(400).json({ message: 'Missing required fields' });
     }
-});
+  
+    try {
+      const reservation = new Reservation({
+        courtNumber,
+        date: new Date(date),
+        time,
+        playerName,
+        duration
+      });
+  
+      const newReservation = await reservation.save();
+      res.status(201).json(newReservation);
+    } catch (err) {
+      console.error('Error saving reservation:', err);
+      res.status(400).json({ message: err.message });
+    }
+  });
+  
 
 module.exports = router;
