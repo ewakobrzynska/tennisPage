@@ -7,23 +7,17 @@ const AddReservation = ({ onSubmit, onClose, selectedDate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Log selectedDate for debugging
-    console.log('selectedDate:', selectedDate);
-  
     if (!selectedDate || !selectedDate.dateStr) {
       console.error('Invalid selectedDate:', selectedDate);
       return;
     }
   
-    // Extract date and time from dateStr
     const dateTime = selectedDate.dateStr.split('T');
-    const date = dateTime[0]; // 'YYYY-MM-DD'
-    const time = dateTime[1] ? dateTime[1].split('+')[0] : ''; // 'HH:MM:SS', removing timezone part
+    const date = dateTime[0];
+    const time = dateTime[1] ? dateTime[1].split('+')[0] : '';
   
-    // Ensure courtNumber is a number
     const courtNumberValue = parseInt(courtNumber, 10);
   
-    // Construct formData object
     const formData = {
       courtNumber: courtNumberValue,
       date: date || '',
@@ -32,28 +26,26 @@ const AddReservation = ({ onSubmit, onClose, selectedDate }) => {
       duration: 1
     };
   
-    // Debugging: log the formData
-    console.log('Submitting formData:', formData);
-  
-    // Call the onSubmit function
     onSubmit(formData);
   };
-  
-  
 
   return (
-    <div className="dialog-modal">
-      <div className="modal-content">
+    <div className="dialog-modal" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <span className="close" onClick={onClose}>&times;</span>
         <form onSubmit={handleSubmit}>
           <h2>Dodaj Nową Rezerwację</h2>
-          <input 
-            type="number" 
-            placeholder="Numer Kortu" 
+          <select 
             value={courtNumber} 
             onChange={(e) => setCourtNumber(e.target.value)} 
-            required 
-          />
+            required
+          >
+            <option value="">Wybierz Numer Kortu</option>
+            <option value="1">Kort 1</option>
+            <option value="2">Kort 2</option>
+            <option value="3">Kort 3</option>
+            <option value="4">Kort 4</option>
+          </select>
           <input 
             type="text" 
             placeholder="Imię Gracza" 

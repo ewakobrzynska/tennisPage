@@ -28,6 +28,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; 
 }
 
 .modal-content {
@@ -37,6 +39,7 @@
     border-radius: 8px;
     width: 400px;
     position: relative;
+    z-index: 1001;
     
 }
 
@@ -46,6 +49,7 @@
     right: 10px;
     font-size: 24px;
     cursor: pointer;
+    color: #000;
 }
 
 form {
@@ -54,11 +58,13 @@ form {
     gap: 1.2rem;
 }
 
-input, button {
+select, input, button {
     padding: 1rem;
     font-size: 16px;
     border: 1px solid var(--color-primary);
     border-radius: 4px;
+    background: var(--color-bg);
+    color: var(--color-white);
 }
 
 button {

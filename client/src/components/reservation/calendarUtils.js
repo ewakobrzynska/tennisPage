@@ -1,18 +1,27 @@
+// calendarUtils.js
+
+export const addDurationToTime = (startTime, duration) => {
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const date = new Date();
+  date.setHours(hours);
+  date.setMinutes(minutes + duration);
+  return date.toTimeString().split(' ')[0];
+};
+
 export const transformReservations = (reservations) => {
-    return reservations.map(reservation => ({
+  return reservations.map(reservation => {
+    const startDateTime = new Date(reservation.date);
+    const startTime = reservation.time;
+    const endTime = addDurationToTime(startTime, reservation.duration);
+
+    const start = `${startDateTime.toISOString().split('T')[0]}T${startTime}`;
+    const end = `${startDateTime.toISOString().split('T')[0]}T${endTime}`;
+
+    return {
       id: reservation._id,
-      title: `${reservation.courtNumber} - ${reservation.playerName}`,
-      start: `${reservation.date}T${reservation.time}`,
-      end: `${reservation.date}T${addDurationToTime(reservation.time, reservation.duration)}`,
-      allDay: false,
-      status: reservation.status
-    }));
-  };
-  
-  const addDurationToTime = (time, duration) => {
-    const [hours, minutes] = time.split(':').map(Number);
-    const endDate = new Date();
-    endDate.setHours(hours, minutes + duration);
-    return endDate.toISOString().substring(11, 16);
-  };
-  
+      title: `${reservation.playerName} (Court ${reservation.courtNumber})`,
+      start: start,
+      end: end
+    };
+  });
+};

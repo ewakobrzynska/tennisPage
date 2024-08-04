@@ -9,7 +9,6 @@ import { transformReservations } from './calendarUtils';
 import './../../styles/calendar.css';
 import './../../styles/style.css';
 
-
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
