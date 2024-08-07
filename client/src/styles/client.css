@@ -1,0 +1,60 @@
+.clients-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .clients-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .clients-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .clients-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .clients-container button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .clients-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .clients-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .clients-container li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .clients-container form {
+      flex-direction: column;
+    }
+  
+    .clients-container input {
+      width: 100%;
+    }
+  
+    .clients-container button {
+      width: 100%;
+    }
+  }
+  

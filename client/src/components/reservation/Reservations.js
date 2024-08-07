@@ -28,11 +28,31 @@ const Reservations = () => {
   }, []);
 
   const handleDateSelect = (selectInfo) => {
-    setSelectedDate(selectInfo);
+    const selectedDate = new Date(selectInfo.start);
+    selectedDate.setMinutes(0, 0, 0); // Round down to the nearest full hour
+    setSelectedDate({
+      ...selectInfo,
+      startStr: selectedDate.toISOString(),
+    });
     setShowDialog(true);
   };
 
   const handleAddReservation = async (formData) => {
+    const { courtNumber, date, time } = formData;
+    const selectedDateTime = new Date(`${date}T${time}`);
+
+    // Check if there is an existing reservation for the selected court and time
+    const existingReservation = reservations.find(reservation => {
+      const reservationDateTime = new Date(`${reservation.date}T${reservation.time}`);
+      return reservation.courtNumber === courtNumber && 
+             reservationDateTime.getTime() === selectedDateTime.getTime();
+    });
+
+    if (existingReservation) {
+      alert('A reservation already exists for this court at the selected time.');
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:5002/api/reservations', formData);
       setReservations(prevReservations => [...prevReservations, response.data]);
@@ -68,10 +88,9 @@ const Reservations = () => {
           nowIndicator={true}
           slotMinTime="09:00:00"
           slotMaxTime="19:00:00"
-          slotDuration="00:30:00"
+          slotDuration="01:00:00"
           slotLabelInterval="01:00:00"
           selectMirror={true}
-          dateClick={handleDateSelect}
           select={handleDateSelect}
           events={calendarEvents}
           allDaySlot={false}
@@ -87,6 +106,7 @@ const Reservations = () => {
           onSubmit={handleAddReservation}
           onClose={() => setShowDialog(false)} 
           selectedDate={selectedDate}
+          reservations={reservations}
         />
       )}
     </div>
