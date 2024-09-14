@@ -31,7 +31,7 @@ const Home = () => {
                         <div className="header_right-image">
                             <h1> Zakończenie kariery</h1>
                             <p>Wielu podejrzewało, że do tego dojdzie...</p>
-                            <Link to="/sezon2022" className="btn btn-primary">CZYTAJ WIĘCEJ</Link>
+                            <Link to="/season2022" className="btn btn-primary">CZYTAJ WIĘCEJ</Link>
                         </div>
                     </div>
                     <div className="header_right">

@@ -8,6 +8,7 @@ import Reservations from './components/reservation/Reservations';
 import Contact from './components/menu/Contact';
 import About from './components/menu/About';
 import './../src/styles/style.css';
+import SeasonsContent from './components/menu/Season';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+        <Route path="season2022" element={<SeasonsContent/>}/>
         <Route path="*" element={<Home to="/" />} />
       </Routes>
       <Footer />

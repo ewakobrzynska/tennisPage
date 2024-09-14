@@ -1,5 +1,5 @@
 const express = require('express');
-const stripe = require('stripe')('sk_test_51PlbVIP36u46iKgkl6bniYASco35fmw13jN7cN8Eybgn5kJ0yr9wVizhbRz6vUxLtwmLBPD2zKw2bVMqEiUfZAMx00BB25jx4C'); // Replace with your Stripe secret key
+const stripe = require('stripe')('sk_test_51PlbVIP36u46iKgkl6bniYASco35fmw13jN7cN8Eybgn5kJ0yr9wVizhbRz6vUxLtwmLBPD2zKw2bVMqEiUfZAMx00BB25jx4C'); 
 const router = express.Router();
 
 router.post('/pay', async (req, res) => {
