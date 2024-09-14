@@ -5,6 +5,7 @@ import './../../styles/purchase.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import ebookCover from './../../assets/ebookCover.png';
+import Wilson from './../../assets/wilson.png';
 
 const stripePromise = loadStripe('pk_test_51PlbVIP36u46iKgkQNcCBljQlg0Ea9yGvTyTfmLPxMq2Rf9YKJncDUjKqQmUwCRTAAFVT31Xh8hqF61NAbAa3IQ200jfKJ7aQ1'); 
 
@@ -68,7 +69,7 @@ const About = () => {
                 <p>Rakieta tenisowa Rogera Federera nie jest niczym magicznym, ale jego styl gry i wyniki łatwo każą myśleć, że jest. Federer używa swojej własnej rakiety Wilson Pro Staff RF 97 Autograph, którą można kupić w sklepie. Używa strun Champions Choice.
                     Przez wiele lat Roger Federer grał rakietą Wilson Pro Staff 90, 90-calową rakietą z małym, ale wydajnym sweet -spotem. Po słabych wynikach i kontuzji w 2013 roku, zdecydował, że czas zmienić dotychczasowy sprzęt i wspólnie z Wilsonem opracowali nową, mocniejszą rakietę, z większą belką i większą główką rakiety. Była to rakieta Wilson Pro Staff Roger Federer Autograph 97 (nazwy rakiet SĄ coraz dłuższe!), w skrócie RF97A.
                 </p>
-                <img src="https://tennisnerd.net/wp-content/uploads/2019/09/roger-federer-afp-NYPost.jpg" alt="Roger Federer with Racket" style={{ border: '0.6rem solid white' }} />
+                < img src={Wilson} alt="Roger Federer with Racket" style={{ border: '0.6rem solid white' }}/>
             </div>
         </div>
 
