@@ -3,15 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const reservationRoutes = require('./routes/reservations');
-const clientRoutes = require('./routes/clients');
-const authRoutes = require('./routes/auth');
-const { authMiddleware, adminMiddleware } = require('./middleware/auth');
 
 const app = express();
 const PORT = 5002;
 require('dotenv').config();
-const JWT_SECRET = process.env.JWT_SECRET;
-
 
 // Middleware for authentication and authorization
 app.use(cors({
@@ -30,14 +25,8 @@ mongoose.connect('mongodb://localhost/tennis-reservations', {
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
 
-// Authentication routes
-app.use('/api/auth', authRoutes);
-
 // Reservation routes (no authentication required here)
 app.use('/api/reservations', reservationRoutes);
-
-// Client routes (authentication and authorization required)
-app.use('/api/clients', authMiddleware, adminMiddleware, clientRoutes);
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

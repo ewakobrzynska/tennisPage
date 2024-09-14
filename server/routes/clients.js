@@ -1,25 +1,23 @@
+// routes/clients.js
 const express = require('express');
 const router = express.Router();
-const Client = require('../models/Client');
+const mongoose = require('mongoose');
 
-router.get('/', async (req, res) => {
-  try {
-    const clients = await Client.find();
-    res.json(clients);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+const Client = mongoose.model('Client', {
+  name: String,
+  email: String,
+  phone: String
 });
 
-router.post('/', async (req, res) => {
-  try {
-    const { clientNumber, name, email, phone } = req.body;
-    const newClient = new Client({ clientNumber, name, email, phone });
-    await newClient.save();
-    res.status(201).json(newClient);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+router.post('/', (req, res) => {
+  // Create new client
+  const client = new Client(req.body);
+  client.save((err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error saving client' });
+    }
+    res.json({ message: 'Client saved successfully' });
+  });
 });
 
 module.exports = router;

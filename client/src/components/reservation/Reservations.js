@@ -29,7 +29,7 @@ const Reservations = () => {
 
   const handleDateSelect = (selectInfo) => {
     const selectedDate = new Date(selectInfo.start);
-    selectedDate.setMinutes(0, 0, 0); // Round down to the nearest full hour
+    selectedDate.setMinutes(0, 0, 0); 
     setSelectedDate({
       ...selectInfo,
       startStr: selectedDate.toISOString(),
@@ -41,7 +41,6 @@ const Reservations = () => {
     const { courtNumber, date, time } = formData;
     const selectedDateTime = new Date(`${date}T${time}`);
 
-    // Check if there is an existing reservation for the selected court and time
     const existingReservation = reservations.find(reservation => {
       const reservationDateTime = new Date(`${reservation.date}T${reservation.time}`);
       return reservation.courtNumber === courtNumber && 

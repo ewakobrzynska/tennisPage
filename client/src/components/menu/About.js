@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './../../styles/style.css';
 import './../../styles/about.css';
+import './../../styles/purchase.css';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import ebookCover from './../../assets/ebookCover.png';
 
-const About = () => (
+const stripePromise = loadStripe('pk_test_51PlbVIP36u46iKgkQNcCBljQlg0Ea9yGvTyTfmLPxMq2Rf9YKJncDUjKqQmUwCRTAAFVT31Xh8hqF61NAbAa3IQ200jfKJ7aQ1'); 
+
+const About = () => {
+
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
+
+    return (
     <section className="about_achievements">
         <div className="container about_achievements-container">
             <div className="about_achievements-left">
@@ -23,6 +41,9 @@ const About = () => (
                 <p>Szwajcarski tenisista i wieloletni lider rankingu ATP.
                     W 2008 roku zdobył złoty medal w grze podwójnej na Igrzyskach Olimpijskich w Pekinie, a w 2012 roku srebrny medal w grze pojedynczej na Igrzyskach Olimpijskich w Londynie.
                     W 2014 roku wywalczył Puchar Davisa. Uważany jest za jednego z najwybitniejszych zawodników w historii tenisa.</p>
+                <button className="buy-ebook-button" onClick={handleOpenModal}>
+                    Kup ebooka! - Roger Federer. Biografia
+                </button>
                 <div className="achievements_cards">
                     <article className="achievement_card">
                         <span className="achievement_icon">
@@ -50,7 +71,115 @@ const About = () => (
                 <img src="https://tennisnerd.net/wp-content/uploads/2019/09/roger-federer-afp-NYPost.jpg" alt="Roger Federer with Racket" style={{ border: '0.6rem solid white' }} />
             </div>
         </div>
-    </section>
-);
+
+        {isModalOpen && (
+                <div className="modal">
+                        <Elements stripe={stripePromise}>
+                            <CheckoutForm handleCloseModal={handleCloseModal} />
+                        </Elements>
+                </div>
+            )}
+
+    </section>);
+
+    };
+
+    const CheckoutForm = ({ handleCloseModal }) => {
+        const stripe = useStripe();
+        const elements = useElements();
+        const [errorMessage, setErrorMessage] = useState('');
+        const [successMessage, setSuccessMessage] = useState('');
+        const [customerName, setCustomerName] = useState('');
+        const [customerEmail, setCustomerEmail] = useState('');
+    
+        const handlePurchase = async (e) => {
+            e.preventDefault();
+            if (!stripe || !elements) {
+                return;
+            }
+    
+            const cardElement = elements.getElement(CardElement);
+    
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: customerName,
+                    email: customerEmail,
+                },
+            });
+    
+            if (error) {
+                setErrorMessage(error.message);
+                return;
+            }
+    
+            const response = await fetch('/api/pay', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    payment_method_id: paymentMethod.id,
+                    customer_name: customerName,
+                    customer_email: customerEmail,
+                }),
+            });
+    
+            const paymentResult = await response.json();
+    
+            if (paymentResult.error) {
+                setErrorMessage(paymentResult.error);
+            } else {
+                setSuccessMessage('Payment successful! Your eBook will be sent to your email.');
+                setTimeout(() => {
+                    handleCloseModal();
+                }, 3000);
+            }
+        };
+    
+        return (
+            <div className="modal-content">
+                <span className="close-button" onClick={handleCloseModal}>&times;</span>
+                <div className="left-column">
+                    <img src={ebookCover} alt="eBook Cover" style={{ maxWidth: '100%' }} />
+                    <h2>Roger Federer. Biografia</h2>
+                    <p>Poznaj inspirującą historię Rogera Federera, jednego z największych tenisistów wszech czasów.</p>
+                </div>
+                <div className="right-column">
+                    <form onSubmit={handlePurchase}>
+                        <label>
+                            Imię i nazwisko:
+                            <input
+                                type="text"
+                                value={customerName}
+                                onChange={(e) => setCustomerName(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Email:
+                            <input
+                                type="email"
+                                value={customerEmail}
+                                onChange={(e) => setCustomerEmail(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Informacje o karcie:
+                            <CardElement />
+                        </label>
+    
+                        <button type="submit" disabled={!stripe}>
+                            Kup
+                        </button>
+                        {errorMessage && <div className="error-message">{errorMessage}</div>}
+                        {successMessage && <div className="success-message">{successMessage}</div>}
+                    </form>
+                </div>
+            </div>
+        );
+    };
 
 export default About;
