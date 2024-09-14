@@ -3,7 +3,7 @@
 ## a. Identyfikacja zagadnienia biznesowego (problemu)
 
 **Cel projektu:**  
-Celem projektu było stworzenie platformy skierowanej do fanów tenisa, z naciskiem na osoby zainteresowane karierą Rogera Federera. Aplikacja dostarcza szczegółowych informacji o stylu gry Federera, najważniejszych sezonach jego kariery oraz umożliwia interakcję z trenerami tenisowymi. Platforma umożliwia kontakt za pomocą formularza web-to-lead zintegrowanego z Salesforce, a także rezerwację lekcji z trenerem poprzez wbudowany kalendarz. Dodatkowo, w celu usprawnienia komunikacji, zintegrowano chatbota Einstein Bot z Salesforce.
+Celem projektu było stworzenie platformy skierowanej do fanów tenisa, z naciskiem na osoby zainteresowane karierą Rogera Federera. Aplikacja dostarcza szczegółowych informacji o stylu gry Federera, najważniejszych sezonach jego kariery oraz umożliwia interakcję z trenerami. Platforma umożliwia kontakt za pomocą formularza web-to-lead zintegrowanego z Salesforce, a także rezerwację kortu poprzez wbudowany kalendarz. Dodatkowo, w celu usprawnienia komunikacji, zintegrowano chatbota Einstein Bot z Salesforce.
 
 **Zakres projektu:**  
 Aplikacja spełnia potrzeby biznesowe poprzez zintegrowanie narzędzi ułatwiających kontakt z trenerami i interakcję użytkowników. Brakuje jednak funkcji rejestracji, logowania oraz panelu administracyjnego, które mogłyby ułatwić zarządzanie użytkownikami i trenerami.
@@ -21,7 +21,7 @@ Aplikacja spełnia potrzeby biznesowe poprzez zintegrowanie narzędzi ułatwiaj�
 - **Frontend**: Aplikacja zbudowana w React, z dynamicznymi funkcjami, takimi jak kalendarz rezerwacji lekcji i chatbot Einstein Bot.
 - **Integracja z Salesforce**: Formularz kontaktowy web-to-lead, przesyłający zapytania użytkowników bezpośrednio do Salesforce CRM. Einstein Bot odpowiada na pytania użytkowników w czasie rzeczywistym.
 - **Kalendarz rezerwacji**: Interaktywny kalendarz umożliwiający rezerwację lekcji z trenerami.
-- **Chatbot**: Einstein Bot, wbudowany w aplikację, odpowiadający na pytania dotyczące lekcji oraz treści związanych z Federerem.
+- **Chatbot**: Einstein Bot, wbudowany w aplikację, zapisujący  do serwisu potencjalnego klienta (uzytkownika) lub przekierowujący rozmowę do Service Consol.
 
 **Model architektury:**  
 Aplikacja zbudowana w modelu **klient-serwer**. Frontend React umożliwia interakcję z użytkownikami, natomiast zewnętrzne narzędzia Salesforce obsługują formularze kontaktowe i chatbota.
@@ -34,19 +34,16 @@ Aplikacja zbudowana w modelu **klient-serwer**. Frontend React umożliwia intera
   - **Klasa Użytkownik**: Przedstawia użytkownika aplikacji (np. osoby rezerwujące lekcje).
     - Pola: imię, email, numer telefonu.
     - Metody: złożenie zapytania, rezerwacja lekcji.
-  - **Klasa Trener**: Reprezentuje trenera tenisowego.
-    - Pola: imię, specjalizacja, dostępność.
-    - Metody: aktualizacja dostępności, akceptacja rezerwacji.
   - **Klasa Lekcja**: Przechowuje informacje o zaplanowanej lekcji tenisowej.
-    - Pola: czas, trener, użytkownik.
-    - Metody: zaplanowanie lekcji, zmiana terminu.
+    - Pola: czas, użytkownik.
+    - Metody: zaplanowanie lekcji.
 
 ### Diagram ERD (Entity Relationship Diagram) – dla przyszłej bazy danych:
 - **Użytkownik** (id, imię, nazwisko, email, telefon)
   - Relacja: 1:N z encją **Rezerwacja Lekcji**
 - **Trener** (id, imię, specjalizacja, dostępność)
   - Relacja: 1:N z encją **Rezerwacja Lekcji**
-- **Rezerwacja Lekcji** (id, data, godzina, id_użytkownika, id_trenera)
+- **Rezerwacja Lekcji** (id, data, godzina, id_użytkownika)
 
 ### Procesy
 - **Rezerwacja lekcji**: Użytkownik wybiera dostępny termin w kalendarzu, podaje swoje dane i rezerwuje lekcję.
@@ -118,7 +115,7 @@ Aplikacja zbudowana w modelu **klient-serwer**. Frontend React umożliwia intera
 
 React – główny framework do budowy aplikacji.
 Salesforce – do obsługi formularzy kontaktowych oraz chatbota Einstein Bot.
-react-calendar – do wyświetlania dostępnych terminów lekcji.
+react-calendar – do wyświetlania dostępnych terminów rezerwacji.
 
 ## e. Podsumowanie
 
@@ -126,7 +123,7 @@ react-calendar – do wyświetlania dostępnych terminów lekcji.
 Aplikacja spełnia podstawowe założenia projektu, takie jak dostarczenie informacji o karierze Rogera Federera, umożliwienie rezerwacji lekcji tenisowych oraz interakcji z użytkownikami za pomocą formularza kontaktowego i chatbota Einstein Bot. Dzięki integracji z Salesforce możliwa jest obsługa leadów oraz szybka komunikacja z użytkownikami za pomocą chatbota.
 
 ### Napotkane trudności:
-Projekt napotkał trudności związane z brakiem zaawansowanego systemu autoryzacji i logowania, co ogranicza personalizację doświadczenia użytkownika. Problemy pojawiły się także przy konfigurowaniu chatbota, wymagając dostosowania do lokalnych potrzeb (język, typy pytań).
+Projekt napotkał trudności związane z brakiem zaawansowanego systemu autoryzacji i logowania, co ogranicza personalizację doświadczenia użytkownika.
 
 ### Perspektywy rozwoju:
-W przyszłości planuje się dodanie funkcji rejestracji i logowania, co pozwoli użytkownikom na dostęp do historii ich rezerwacji oraz spersonalizowaną komunikację. Dodatkowo, planowana jest rozbudowa panelu administracyjnego, który umożliwi zarządzanie dostępnością trenerów i lekcji. Rozważana jest także integracja z bardziej zaawansowanymi bazami danych, co pozwoli na lepsze zarządzanie danymi użytkowników i trenerów.
+W przyszłości planuje się dodanie funkcji rejestracji i logowania, co pozwoli użytkownikom na dostęp do historii ich rezerwacji oraz spersonalizowaną komunikację. Dodatkowo, planowana jest rozbudowa panelu administracyjnego, który umożliwi zarządzanie dostępnością trenerów i lekcji.
