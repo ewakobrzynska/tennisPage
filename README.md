@@ -59,6 +59,7 @@ Aplikacja zbudowana w modelu **klient-serwer**. Frontend React umożliwia intera
 ### Kluczowe fragmenty kodu:
 
 1. **Formularz kontaktowy zintegrowany z Salesforce**:
+![Formularz kontaktowy](./images-readme/formularz.png)
    ```jsx
    const handleSubmit = (e) => {
      e.preventDefault();
