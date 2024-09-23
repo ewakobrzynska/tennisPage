@@ -47,6 +47,20 @@
     font-size: 1.5rem;
 }
 
+.buy-ebook-button {
+    background-color: var(--color-danger);
+    margin-bottom: 3rem;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2rem;
+}
+.buy-ebook-button:hover {
+    background-color: var(--color-primary);
+}
+
 /*******RESPONSIVE*********/
 @media only screen and (max-width: 980px){
     .achievement_icon{

@@ -32,7 +32,7 @@ const AddReservation = ({ onSubmit, onClose, selectedDate, reservations }) => {
 
     const dateTime = selectedDate.startStr.split('T');
     const date = dateTime[0]; // 'YYYY-MM-DD'
-    const time = dateTime[1] ? dateTime[1].split('+')[0] : ''; // 'HH:MM:SS', removing timezone part
+    const time = dateTime[1] ? dateTime[1].split('+')[0] : ''; // 'HH:MM:SS'
 
     const courtNumberValue = parseInt(courtNumber, 10);
 

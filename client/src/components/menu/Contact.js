@@ -12,9 +12,9 @@ const Contact = () => (
                 <h2>Skontaktuj się z Nami!</h2>
             </aside>
 
-            <form className="contact_form" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DWU000007vYzZ" method="POST">
-            <input type="hidden" name="oid" value="00DWU000007vYzZ"/>
-            <input type="hidden" name="retURL" value="https://britenet-15f-dev-ed--c.develop.vf.force.com/apex/TennisPage"/>
+            <form className="contact_form" action="https://webto.salesforce.com/servlet/key" method="POST">
+            <input type="hidden" name="oid" value="key"/>
+            <input type="hidden" name="retURL" value="https://britenet-15f-dev-ed.develop.my.salesforce-sites.com/webtolead"/>
                 <div className="form_name">
                     <input id="first_name" type="text" name="first_name" placeholder="Imię" required />
                     <input id="last_name" type="text" name="last_name" placeholder="Nazwisko" required />

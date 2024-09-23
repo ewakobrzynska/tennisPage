@@ -42,8 +42,8 @@ const About = () => {
                 <p>Szwajcarski tenisista i wieloletni lider rankingu ATP.
                     W 2008 roku zdobył złoty medal w grze podwójnej na Igrzyskach Olimpijskich w Pekinie, a w 2012 roku srebrny medal w grze pojedynczej na Igrzyskach Olimpijskich w Londynie.
                     W 2014 roku wywalczył Puchar Davisa. Uważany jest za jednego z najwybitniejszych zawodników w historii tenisa.</p>
-                <button className="buy-ebook-button" onClick={handleOpenModal}>
-                    Kup ebooka! - Roger Federer. Biografia
+                <button className="buy-ebook-button" onClick={handleOpenModal} >
+                    KUP EBOOKA! <br></br>ROGER FEDERER - BIOGRAFIA
                 </button>
                 <div className="achievements_cards">
                     <article className="achievement_card">
@@ -144,8 +144,6 @@ const About = () => {
                 <span className="close-button" onClick={handleCloseModal}>&times;</span>
                 <div className="left-column">
                     <img src={ebookCover} alt="eBook Cover" style={{ maxWidth: '100%' }} />
-                    <h2>Roger Federer. Biografia</h2>
-                    <p>Poznaj inspirującą historię Rogera Federera, jednego z największych tenisistów wszech czasów.</p>
                 </div>
                 <div className="right-column">
                     <form onSubmit={handlePurchase}>
@@ -173,11 +171,12 @@ const About = () => {
                         </label>
     
                         <button type="submit" disabled={!stripe}>
-                            Kup
+                            KUP
                         </button>
                         {errorMessage && <div className="error-message">{errorMessage}</div>}
                         {successMessage && <div className="success-message">{successMessage}</div>}
                     </form>
+                    <p>Elegancja, precyzja i mistrzostwo na korcie uczyniły go legendą sportu, a skromność i działalność charytatywna – ikoną poza nim. <br></br>To opowieść o geniuszu tenisa, który zainspirował miliony.</p>
                 </div>
             </div>
         );
